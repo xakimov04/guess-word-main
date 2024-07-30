@@ -34,33 +34,32 @@ class Homepage extends StatelessWidget {
           listener: (context, state) {
             if (state.words.isNotEmpty &&
                 state.userWord.join() == state.words[0].word) {
-              Future.delayed(Duration.zero, () {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: const Text("Correct!"),
-                      content: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text("You guessed the word!"),
-                          Text("Description: ${state.words[0].description}"),
-                        ],
-                      ),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            context.read<WordBloc>().add(NextWord());
-                            Navigator.of(context).pop();
-                          },
-                          child: const Text("Next Word"),
-                        ),
+              // Directly call showDialog without using Future.delayed
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: const Text("Correct!"),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text("You guessed the word!"),
+                        Text("Description: ${state.words[0].description}"),
                       ],
-                    );
-                  },
-                );
-              });
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          context.read<WordBloc>().add(NextWord());
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text("Next Word"),
+                      ),
+                    ],
+                  );
+                },
+              );
             }
           },
           builder: (context, state) {
@@ -73,14 +72,11 @@ class Homepage extends StatelessWidget {
                 ),
               );
             }
-
             if (state.words.isEmpty) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
             }
-
-            final word = state.words[0].word;
             return CustomScrollView(
               slivers: [
                 SliverToBoxAdapter(

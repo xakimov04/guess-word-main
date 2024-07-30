@@ -1,0 +1,14 @@
+workflows:
+  my-workflow:
+    name: guess-word-main
+    instance_type: mac_mini_m1
+    max_build_duration: 60
+    environment:
+      flutter: stable
+      xcode: latest
+    scripts:
+      - flutter pub get
+      - flutter test
+      - flutter build apk
+    artifacts:
+      - build/**/outputs/**/*.apk
