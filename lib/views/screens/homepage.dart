@@ -103,6 +103,7 @@ class Homepage extends StatelessWidget {
                                   child: FadeInImage.assetNetwork(
                                     placeholder: 'assets/image.jpg',
                                     image: state.words[index].image,
+                                    
                                     fit: BoxFit.cover,
                                   ),
                                 ),
