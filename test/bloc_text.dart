@@ -15,7 +15,7 @@ void main() {
     });
 
     test('initial state is WordState', () {
-      expect(wordBloc.state,  WordState());
+      expect(wordBloc.state, const WordState());
     });
 
     blocTest<WordBloc, WordState>(
